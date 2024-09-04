@@ -1,6 +1,6 @@
 ﻿
 Calculator Calculator = new Calculator();
-int result = Calculator.Add("1\n2,3,1002");
+int result = Calculator.Add("//,\n2,ff,100");
 Console.WriteLine(result);
 
 public class Calculator
@@ -9,7 +9,15 @@ public class Calculator
     {
         if (string.IsNullOrEmpty(numbers)) return 0;
 
-        var stringNumbers = numbers.Split(new[] { ",", "\n" }, StringSplitOptions.None);
+        string[] delimiters = new[] { ",", "\n" };
+        if (numbers.StartsWith("//"))
+        {
+            var index = numbers.IndexOf("\n", StringComparison.Ordinal);
+            delimiters = new[] { numbers.Substring(2, index - 2) };
+            numbers = numbers.Substring(index + 1);
+        }
+
+        var stringNumbers = numbers.Split(delimiters, StringSplitOptions.None);
 
         int sum = 0;
         foreach (var number in stringNumbers)
