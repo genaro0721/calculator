@@ -1,6 +1,6 @@
 ﻿
 Calculator Calculator = new Calculator();
-int result = Calculator.Add("//[***]\n11***22***33");
+int result = Calculator.Add("//[*][!!][r9r]\n11r9r22*hh*33!!44");
 Console.WriteLine(result);
 
 public class Calculator
@@ -9,15 +9,20 @@ public class Calculator
     {
         if (string.IsNullOrEmpty(numbers)) return 0;
 
-        string[] delimiters = new[] { ",", "\n" };
+        var delimiters = new List<string> { ",", "\n" };
         if (numbers.StartsWith("//"))
         {
-            var index = numbers.IndexOf("\n");
-            delimiters = new[] { numbers.Substring(3, index - 4) };
-            numbers = numbers.Substring(index + 1);
+            var endOfDelimiters = numbers.IndexOf("\n");
+            var delimitersContent = numbers.Substring(2, endOfDelimiters - 2);
+            var matches = System.Text.RegularExpressions.Regex.Matches(delimitersContent, @"\[(.*?)\]");
+            foreach (var match in matches)
+            {
+                delimiters.Add(match.ToString().Trim('[', ']'));
+            }
+            numbers = numbers.Substring(endOfDelimiters + 1);
         }
 
-        var stringNumbers = numbers.Split(delimiters, StringSplitOptions.None);
+        var stringNumbers = numbers.Split(delimiters.ToArray(), StringSplitOptions.None);
 
         int sum = 0;
         foreach (var number in stringNumbers)
