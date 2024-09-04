@@ -1,6 +1,6 @@
 ﻿
 Calculator Calculator = new Calculator();
-int result = Calculator.Add("1\n2,3");
+int result = Calculator.Add("1\n2,3,-2");
 Console.WriteLine(result);
 
 public class Calculator
@@ -16,6 +16,7 @@ public class Calculator
         {
             if (int.TryParse(number, out var parsedNumber))
             {
+                if (parsedNumber < 0) throw new ArgumentException("Negative numbers are not allowed");
                 sum += parsedNumber;
             }
         }
