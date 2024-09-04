@@ -1,6 +1,6 @@
 ﻿
 Calculator Calculator = new Calculator();
-int result = Calculator.Add("1,2,3,4,5,6,7,8,9,10,11,12");
+int result = Calculator.Add("1\n2,3");
 Console.WriteLine(result);
 
 public class Calculator
@@ -9,7 +9,7 @@ public class Calculator
     {
         if (string.IsNullOrEmpty(numbers)) return 0;
 
-        var stringNumbers = numbers.Split(",");
+        var stringNumbers = numbers.Split(new[] { ",", "\n" }, StringSplitOptions.None);
 
         int sum = 0;
         foreach (var number in stringNumbers)
