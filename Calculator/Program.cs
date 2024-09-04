@@ -1,6 +1,6 @@
 ﻿
 Calculator Calculator = new Calculator();
-int result = Calculator.Add("//,\n2,ff,100");
+int result = Calculator.Add("//[***]\n11***22***33");
 Console.WriteLine(result);
 
 public class Calculator
@@ -12,8 +12,8 @@ public class Calculator
         string[] delimiters = new[] { ",", "\n" };
         if (numbers.StartsWith("//"))
         {
-            var index = numbers.IndexOf("\n", StringComparison.Ordinal);
-            delimiters = new[] { numbers.Substring(2, index - 2) };
+            var index = numbers.IndexOf("\n");
+            delimiters = new[] { numbers.Substring(3, index - 4) };
             numbers = numbers.Substring(index + 1);
         }
 
